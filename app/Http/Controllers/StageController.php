@@ -269,6 +269,16 @@ public function createPDFFC($path) {
         return redirect()->route('admin.stages');
     }
 
+   public function annulerStage(string $id)
+    {
+        $stage = Stage::findOrFail($id);
+
+        $stage->update([
+            'statut' => -2
+        ]);
+
+        return redirect()->route('admin.stages');
+    }
 
     /**
      * Show the form for creating a new resource.

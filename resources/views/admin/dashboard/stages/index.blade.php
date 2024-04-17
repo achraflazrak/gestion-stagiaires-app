@@ -94,6 +94,11 @@ Stages
                         @method('PUT')
                         <button type="submit" class="btn btn-success m-2">Fin de stage</button>
                     </form>
+                    <form action="{{ route('admin.stage.statut.annuler', $stage->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-danger m-2">Annuler</button>
+                    </form>
 
                 </td>
                 <td>

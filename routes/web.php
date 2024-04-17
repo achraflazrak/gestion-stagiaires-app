@@ -99,6 +99,7 @@ Route::middleware('admin')->group(function () {
     Route::put('/stage/statut/prestage/{id}', [StageController::class, 'prestage'])->name('admin.stage.statut.prestage');
     Route::put('/stage/statut/encours/{id}', [StageController::class, 'encoursStage'])->name('admin.stage.statut.encours');
     Route::put('/stage/statut/finstage/{id}', [StageController::class, 'finStage'])->name('admin.stage.statut.finstage');
+    Route::put('/stage/statut/annuler/{id}', [StageController::class, 'annulerStage'])->name('admin.stage.statut.annuler');
 
 });
 
