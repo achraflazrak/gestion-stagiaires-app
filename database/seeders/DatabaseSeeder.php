@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory()->create([
             'cin' => 'AA000111',
-            'nom' => 'lazrak',
-            'prenom' => 'achraf',
-            'email' => 'achraflazrak@email.com',
+            'nom' => 'admin',
+            'prenom' => 'admin',
+            'email' => 'admin@email.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789'),
             'is_admin' => true,
