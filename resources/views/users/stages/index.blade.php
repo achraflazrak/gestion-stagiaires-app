@@ -51,7 +51,13 @@ Stages
                     <a href="{{ route('user.stage.fc.pdf', basename($stage->fiche_confirmation, '.pdf')) }}"
                         class="btn btn-primary"><i class="fas fa-eye"></i></a>
                     <a href="{{ route('user.stage.fc', $stage->id) }}" class="btn btn-success }}">
-                        <i class="fas fa-download"></i>
+                        <i class="fas fa-download"></i></a>
+
+                            <form action="{{ route('user.stage.delete.fc', $stage->id) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <button class="btn btn-danger mt-1" onclick="return confirm('Ëtes vous sûre de supprimer cette fiche de confirmation?')" type="submit"><i class="fas fa-trash"></i></button>
+                            </form>
                         @else
                         <span>
                             <form action="{{ route('user.stage.update.fc', $stage->id) }}" method="POST" enctype="multipart/form-data">
@@ -74,7 +80,12 @@ Stages
                     <a href="{{ route('user.stage.fe.pdf', basename($stage->fiche_evaluation, '.pdf')) }}"
                         class="btn btn-primary"><i class="fas fa-eye"></i></a>
                     <a href="{{ route('user.stage.fe', $stage->id) }}" class="btn btn-success }}">
-                        <i class="fas fa-download"></i>
+                        <i class="fas fa-download"></i></a>
+                        <form action="{{ route('user.stage.delete.fe', $stage->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <button class="btn btn-danger mt-1" onclick="return confirm('Ëtes vous sûre de supprimer cette fiche d\'évaluation?')" type="submit"><i class="fas fa-trash"></i></button>
+                        </form>
                     @else
                         <span>
                             <form action="{{ route('user.stage.update.fe', $stage->id) }}" method="POST" enctype="multipart/form-data">
@@ -96,7 +107,12 @@ Stages
                         <a href="{{ route('user.stage.rap.pdf', basename($stage->rapport, '.pdf')) }}"
                             class="btn btn-primary"><i class="fas fa-eye"></i></a>
                         <a href="{{ route('user.stage.rap', $stage->id) }}" class="btn btn-success }}">
-                            <i class="fas fa-download"></i>
+                            <i class="fas fa-download"></i></a>
+                            <form action="{{ route('user.stage.delete.rap', $stage->id) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <button class="btn btn-danger mt-1" onclick="return confirm('Ëtes vous sûre de supprimer ce rapport?')" type="submit"><i class="fas fa-trash"></i></button>
+                            </form>
                         @else
                             <span>
                                 <form action="{{ route('user.stage.update.rap', $stage->id) }}" method="POST" enctype="multipart/form-data">

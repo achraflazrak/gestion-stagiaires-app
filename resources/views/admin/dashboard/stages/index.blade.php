@@ -80,7 +80,7 @@ Stages
                     <form action="{{ route('admin.stage.statut.prestage', $stage->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <button type="submit" class="btn btn-secondary m-2">Préstage</button>
+                        <button type="submit" class="btn btn-info m-2">Préstage</button>
                     </form>
 
                     <form action="{{ route('admin.stage.statut.encours', $stage->id) }}" method="POST">

@@ -235,6 +235,55 @@ public function createPDFFC($path) {
     }
 
 
+    public function deleteFC(Request $request, string $id)
+    {
+        $stage = Stage::findOrFail($id);  // Use findOrFail to handle the case where the stage does not exist
+
+            // Delete old file, if necessary
+        if ($stage->fiche_confirmation && Storage::disk('public')->exists('fcs/' . $stage->fiche_confirmation)) {
+            Storage::disk('public')->delete('fcs/' . $stage->fiche_confirmation);
+        }
+
+            // Store only the relative path in the database
+        $stage->fiche_confirmation = null;
+        $stage->save();
+
+        return redirect()->route('user.stages')->with('msg', 'Fiche de confirmation a été supprimée avec succès!');
+    }
+
+
+    public function deleteFE(Request $request, string $id)
+    {
+        $stage = Stage::find($id);
+
+        if ($stage->fiche_evaluation && Storage::exists('app/fes' . $stage->fiche_evaluation)) {
+            Storage::delete($stage->fiche_evaluation);
+        }
+
+        $stage->update([
+            'fiche_evaluation' => null
+        ]);
+
+         return redirect()->route('user.stages')->with('msg', 'Fiche de evaluation a été supprimée avec succés!');
+    }
+
+
+    public function deleteRapport(Request $request, string $id)
+    {
+        $stage = Stage::find($id);
+
+        if ($stage->rapport && Storage::exists('app/raps' . $stage->rapport)) {
+            Storage::delete($stage->rapport);
+        }
+
+
+        $stage->update([
+            'rapport' => null
+        ]);
+
+         return redirect()->route('user.stages')->with('msg', 'Rapport de stage a été supprimé avec succés!');
+    }
+
     public function prestage(string $id)
     {
         $stage = Stage::findOrFail($id);

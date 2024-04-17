@@ -130,6 +130,10 @@ Route::middleware('stg')->group(function () {
     Route::put('/stage/update/fe/{id}', [StageController::class, 'updateFE'])->name('user.stage.update.fe');
     Route::put('/stage/update/rap/{id}', [StageController::class, 'updateRapport'])->name('user.stage.update.rap');
 
+    Route::put('/stage/delete/fc/{id}', [StageController::class, 'deleteFC'])->name('user.stage.delete.fc');
+    Route::put('/stage/delete/fe/{id}', [StageController::class, 'deleteFE'])->name('user.stage.delete.fe');
+    Route::put('/stage/delete/rap/{id}', [StageController::class, 'deleteRapport'])->name('user.stage.delete.rap');
+
     Route::get('/stage/fc/pdf/{path}', [StageController::class, 'createPDFFC'])->name('user.stage.fc.pdf');
     Route::get('/stage/fe/pdf/{path}', [StageController::class, 'createPDFFE'])->name('user.stage.fe.pdf');
     Route::get('/stage/rap/pdf/{path}', [StageController::class, 'createPDFRapport'])->name('user.stage.rap.pdf');
