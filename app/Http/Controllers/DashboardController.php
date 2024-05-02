@@ -12,6 +12,9 @@ class DashboardController extends Controller
 {
     //
     public function index() {
+        if (auth()->user() === null)
+            return view('auth.login');
+
         $nbDemandes = Demande::all()->count();
         $nbDemandesAcceptees = Demande::all()->where('is_accept', true)->count();
         $nbDemandesRefusees = Demande::all()->where('is_accept','===', false)->count();

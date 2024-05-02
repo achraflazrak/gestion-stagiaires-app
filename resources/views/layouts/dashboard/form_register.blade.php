@@ -131,23 +131,23 @@
         </div>
 
     <div class="row mb-3">
-            <label for="sexe" class="col-md-4 col-form-label text-md-end">{{ __('Sexe') }}</label>
+        <label for="sexe" class="col-md-4 col-form-label text-md-end">{{ __('Sexe') }}</label>
 
-            <div class="col-md-6">
-                <select id="sexe" name="sexe" class="form-select" aria-label="Default select example">
-                    <option value="" selected disabled></option>
-                    <option value="m">M</option>
-                    <option value="f">F</option>
-                </select>
-            </div>
+        <div class="col-md-6">
+            <select id="sexe" name="sexe" class="form-select @error('sexe') is-invalid @enderror"
+                aria-label="Default select example">
+                <option value="" disabled {{ old('sexe') ? '' : 'selected' }}>Choisir un option...</option>
+                <option value="m" {{ old('sexe')=='m' ? 'selected' : '' }}>M</option>
+                <option value="f" {{ old('sexe')=='f' ? 'selected' : '' }}>F</option>
+            </select>
 
-                @error('sexe')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
+            @error('sexe')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
+    </div>
 
     <div class="row mb-3">
         <label for="etablissement" class="col-md-4 col-form-label text-md-end">{{ __('Etablissement') }}</label>
@@ -178,32 +178,33 @@
         </div>
     </div>
 
-    <div class="row mb-3">
-        <label for="niveau" class="col-md-4 col-form-label text-md-end">{{ __('Formation professionelle') }}</label>
+<div class="row mb-3">
+    <label for="niveau" class="col-md-4 col-form-label text-md-end">{{ __('Formation professionelle') }}</label>
 
-       <div class="col-md-6">
-            <select id="niveau" name="niveau" class="form-select" aria-label="Default select example">
-                <option value="" selected disabled></option>
-                <option value="bac+1">Bac + 1</option>
-                <option value="bac+2">Bac + 2</option>
-                <option value="bac+3">Bac + 3</option>
-                <option value="bac+4">Bac + 4</option>
-                <option value="bac+5">Bac + 5</option>
-            </select>
-        </div>
+    <div class="col-md-6">
+        <select id="niveau" name="niveau" class="form-select @error('niveau') is-invalid @enderror"
+            aria-label="Default select example">
+            <option value="" disabled {{ old('niveau') ? '' : 'selected' }}>Choisir un option...</option>
+            <option value="bac+1" {{ old('niveau')=='bac+1' ? 'selected' : '' }}>Bac + 1</option>
+            <option value="bac+2" {{ old('niveau')=='bac+2' ? 'selected' : '' }}>Bac + 2</option>
+            <option value="bac+3" {{ old('niveau')=='bac+3' ? 'selected' : '' }}>Bac + 3</option>
+            <option value="bac+4" {{ old('niveau')=='bac+4' ? 'selected' : '' }}>Bac + 4</option>
+            <option value="bac+5" {{ old('niveau')=='bac+5' ? 'selected' : '' }}>Bac + 5</option>
+        </select>
 
         @error('niveau')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
         @enderror
     </div>
+</div>
 
     <div class="row mb-3">
         <label for="cv" class="col-md-4 col-form-label text-md-end">{{ __('C.V') }}</label>
         <div class="col-md-6">
-            <input id="cv" type="file" class="form-control @error('cv') is-invalid @enderror" name="cv"
-                value="{{ old('cv') }}" required autocomplete="cv" autofocus>
+            <input id="cv" type="file" class="form-control @error('cv') is-invalid @enderror" name="cv" required
+                autocomplete="off" autofocus>
 
             @error('cv')
             <span class="invalid-feedback" role="alert">

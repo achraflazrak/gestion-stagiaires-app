@@ -13,6 +13,9 @@ class OffreController extends Controller
     public function index()
     {
         //
+        if (auth()->user() === null)
+            return view('auth.login');
+
         $offres = Offre::all();
         return view('admin.dashboard.offres.index', compact('offres'));
     }

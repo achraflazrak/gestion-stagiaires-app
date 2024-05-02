@@ -29,14 +29,14 @@ Demandes
                     <td>#{{ $demande->offre->id }}</td>
                     <td>{{ Str::ucfirst($demande->offre->sujet) }}</td>
                     <td>
-                        <a href="{{ route('admin.demande.cv.pdf', basename($demande->user->cv, '.pdf')) }}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                        <a href="{{ route('admin.demande.cv', $demande->id) }}" class="btn btn-success">
+                        <a href="{{ route('admin.demande.cv.pdf', basename($demande->user->cv, '.pdf')) }}" class="btn btn-primary my-2" target="_blank"><i class="fas fa-eye"></i></a>
+                        <a href="{{ route('admin.demande.cv', $demande->id) }}" class="btn btn-success" target="_blank">
                             <i class="fas fa-download"></i>
                         </a>
                     </td>
                     <td>
-                        <a href="{{ route('admin.demande.lm.pdf', basename($demande->lettre_motivation, '.pdf')) }}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                        <a href="{{ route('admin.demande.lm', $demande->id) }}" class="btn btn-success">
+                        <a href="{{ route('admin.demande.lm.pdf', basename($demande->lettre_motivation, '.pdf')) }}" class="btn btn-primary my-2" target="_blank"><i class="fas fa-eye"></i></a>
+                        <a href="{{ route('admin.demande.lm', $demande->id) }}" class="btn btn-success" target="_blank">
                             <i class="fas fa-download"></i>
                         </a>
                     </td>
@@ -61,7 +61,7 @@ Demandes
                         <form action="{{ route('admin.demande.encours', $demande->id) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <button type="submit" class="btn btn-primary m-2">Return à en cours de validation</button>
+                            <button type="submit" class="btn btn-primary m-2">Returner à en cours de validation</button>
                         </form>
 
                     </td>

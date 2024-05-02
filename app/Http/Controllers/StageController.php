@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Offre;
+use App\Models\User;
 use App\Models\Stage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -15,6 +17,9 @@ class StageController extends Controller
      */
     public function index()
     {
+        if (auth()->user() === null)
+            return view('auth.login');
+
         if (auth()->user()->is_admin) {
             $stages = Stage::all();
             return view('admin.dashboard.stages.index', compact('stages'));
@@ -28,7 +33,9 @@ class StageController extends Controller
         $stage = Stage::findOrFail($id);
         if ($stage->statut == 1) {
             $stg = $stage->user;
-            $view = view('admin.dashboard.stages.documents.attestation', compact('stg')); // Prepare the view
+            $admin = User::where('is_admin', 1)->first();
+            $offre = $stage->offre;
+            $view = view('admin.dashboard.stages.documents.attestation', compact(['stg', 'admin', 'offre'])); // Prepare the view
             $pdf = PDF::loadHTML($view->render())->setPaper('a4', 'landscape'); // Convert to PDF
 
             return $pdf->download('attestation-stage.pdf'); // Download the PDF
@@ -335,15 +342,56 @@ public function createPDFFC($path) {
     public function create()
     {
         //
+        $stgs = User::where('is_admin', 0)->get();
+        $offres = Offre::where('is_published', 1)->get();
+        return view('admin.dashboard.stages.create', compact(['stgs', 'offres']));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+public function store(Request $request)
+{
+
+        $request->validate([
+            'fiche_confirmation' => 'file|mimes:pdf,doc,docx|max:2048',
+            'fiche_evaluation' => 'file|mimes:pdf,doc,docx|max:2048',
+            'rapport' => 'file|mimes:pdf,doc,docx|max:2048',
+            'user_id' => 'required|exists:users,id',
+            'offre_id' => 'required|exists:offres,id',
+        ]);
+
+    // Assuming $stage is already defined or needs to be retrieved or created
+    // For example, if it's a new stage, you would create it like so:
+    $stage = new Stage;
+
+    // Process fiche_confirmation
+    if ($request->hasFile('fiche_confirmation')) {
+        $filePath = $request->file('fiche_confirmation')->store('fcs', 'local');
+        $stage->fiche_confirmation = $filePath;
     }
+
+    // Process fiche_evaluation
+    if ($request->hasFile('fiche_evaluation')) {
+        $filePath = $request->file('fiche_evaluation')->store('fes', 'local');
+        $stage->fiche_evaluation = $filePath;
+    }
+
+    // Process rapport
+    if ($request->hasFile('rapport')) {
+        $filePath = $request->file('rapport')->store('raps', 'local');
+        $stage->rapport = $filePath;
+    }
+
+    $stage->user_id = $request->user_id;
+    $stage->offre_id = $request->offre_id;
+
+    $stage->save();
+
+    // Redirect with success message
+    return redirect()->route('admin.stages')->with('msg', 'Le stage a été creé avec succès!');
+}
+
 
     /**
      * Display the specified resource.
@@ -356,17 +404,70 @@ public function createPDFFC($path) {
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Stage $stage)
+    public function edit(string $id)
     {
         //
+        $stgs = User::where('is_admin', 0)->get();
+        $offres = Offre::where('is_published', 1)->get();
+        $stage = Stage::findOrFail($id);
+        return view('admin.dashboard.stages.edit', compact(['stgs', 'offres', 'stage']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Stage $stage)
+    public function update(Request $request, string $id)
     {
         //
+
+        $request->validate([
+            'fiche_confirmation' => 'file|mimes:pdf,doc,docx|max:2048',
+            'fiche_evaluation' => 'file|mimes:pdf,doc,docx|max:2048',
+            'rapport' => 'file|mimes:pdf,doc,docx|max:2048',
+            'user_id' => 'required|exists:users,id',
+            'offre_id' => 'required|exists:offres,id',
+        ]);
+
+    // Assuming $stage is already defined or needs to be retrieved or created
+    // For example, if it's a new stage, you would create it like so:
+    $stage = Stage::findOrFail($id);
+
+
+    // Process fiche_confirmation
+    if ($request->hasFile('fiche_confirmation')) {
+        if ($stage->fiche_confirmation && Storage::exists('app/fcs' . $stage->fiche_confirmation)) {
+            Storage::delete($stage->fiche_confirmation);
+        }
+        $filePath = $request->file('fiche_confirmation')->store('fcs', 'local');
+        $stage->fiche_confirmation = $filePath;
+    }
+
+
+    // Process fiche_evaluation
+    if ($request->hasFile('fiche_evaluation')) {
+        if ($stage->fiche_evaluation && Storage::exists('app/fes' . $stage->fiche_evaluation)) {
+            Storage::delete($stage->fiche_evaluation);
+        }
+        $filePath = $request->file('fiche_evaluation')->store('fes', 'local');
+        $stage->fiche_evaluation = $filePath;
+    }
+
+    // Process rapport
+    if ($request->hasFile('rapport')) {
+        if ($stage->rapport && Storage::exists('app/raps' . $stage->rapport)) {
+            Storage::delete($stage->rapport);
+        }
+        $filePath = $request->file('rapport')->store('raps', 'local');
+        $stage->rapport = $filePath;
+    }
+
+    $stage->user_id = $request->user_id;
+    $stage->offre_id = $request->offre_id;
+
+    $stage->update();
+
+    // Redirect with success message
+    return redirect()->route('admin.stages')->with('msg', 'Les informations du stage ont été mises à jour avec succès!');
     }
 
     /**

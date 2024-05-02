@@ -21,4 +21,10 @@ class Demande extends Model
         return $this->belongsTo(Offre::class);
     }
 
+
+    public function getStageByDemandeId($demandeId) {
+        $demande = Demande::findOrFail($demandeId);
+        return Stage::where('offre_id', $demande->offre_id)->where('user_id', $demande->user_id)->first();
+    }
+
 }

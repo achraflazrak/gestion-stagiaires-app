@@ -22,7 +22,7 @@ return new class extends Migration
             $table->date('dateN')->nullable();
             $table->string('telephone')->nullable();
             $table->string('adresse')->nullable();
-            $table->string('sexe')->nullable();
+            $table->string('sexe');
             $table->string('etablissement')->nullable();
             $table->string('filiere')->nullable();
             $table->string('niveau')->nullable();

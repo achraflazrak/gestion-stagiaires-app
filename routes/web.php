@@ -40,6 +40,10 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/stgs', [StagiaireController::class, 'index'])->name('admin.stgs');
     Route::get('/admin/stg/{id}', [StagiaireController::class, 'show'])->name('admin.stg.show');
     Route::delete('/admin/destroy/stg/{id}', [StagiaireController::class, 'destroy'])->name('admin.stg.destroy');
+    Route::get('admin/edit/stg/{id}', [StagiaireController::class, 'edit'])->name('admin.stg.edit');
+    Route::put('admin/update/stg/{id}', [StagiaireController::class, 'update'])->name('admin.stg.update');
+    Route::get('admin/create/stg', [StagiaireController::class, 'create'])->name('admin.stg.create');
+    Route::post('admin/store/stg', [StagiaireController::class, 'store'])->name('admin.stg.store');
 
     Route::get('/admin/offres', [OffreController::class, 'index'])->name('admin.offres');
     Route::put('/admin/publshcahe/offre/{id}', [OffreController::class, 'publierOuCacher'])->name('admin.offre.publishcache');
@@ -69,6 +73,11 @@ Route::middleware('admin')->group(function () {
     Route::delete('/admin/destroy/demande/{id}', [DemandeController::class, 'destroy'])->name('admin.demande.destroy');
 
     Route::get('/admin/stages', [StageController::class, 'index'])->name('admin.stages');
+    Route::get('/admin/create/stage', [StageController::class, 'create'])->name('admin.stage.create');
+    Route::post('/admin/store/stage', [StageController::class, 'store'])->name('admin.stage.store');
+    Route::get('/admin/edit/stage/{id}', [StageController::class, 'edit'])->name('admin.stage.edit');
+Route::put('/admin/update/stage/{id}', [StageController::class, 'update'])->name('admin.stage.update');
+
     Route::delete('/admin/destroy/stage/{id}', [StageController::class, 'destroy'])->name('admin.stage.destroy');
 
     Route::get('/stage/fc/pdf/{path}/admin', [StageController::class, 'createPDFFC'])->name('admin.stage.fc.pdf');
@@ -79,22 +88,6 @@ Route::middleware('admin')->group(function () {
     Route::get('/download-pdf-fc/{id}/admin', [StageController::class, 'downloadFC'])->name('admin.stage.fc');
     Route::get('/download-pdf-fe/{id}/admin', [StageController::class, 'downloadFE'])->name('admin.stage.fe');
     Route::get('/download-pdf-rap/{id}/admin', [StageController::class, 'downloadRapport'])->name('admin.stage.rap');
-
-    Route::get('/admin/docs', [DocumentController::class, 'index'])->name('admin.docs');
-
-    Route::get('/document/cv/pdf/{path}', [DocumentController::class, 'createPDFCV'])->name('admin.document.cv.pdf');
-    Route::get('/document/lm/pdf/{path}', [DocumentController::class, 'createPDFLM'])->name('admin.document.lm.pdf');
-    Route::get('/download-pdf-cv//doc/{id}', [DocumentController::class, 'downloadCV'])->name('admin.document.cv');
-    Route::get('/download-pdf-lm/doc/{id}', [DocumentController::class, 'downloadLM'])->name('admin.document.lm');
-
-    Route::get('/document/fc/pdf/{path}', [DocumentController::class, 'createPDFFC'])->name('admin.document.fc.pdf');
-    Route::get('/document/fe/pdf/{path}', [DocumentController::class, 'createPDFFE'])->name('admin.document.fe.pdf');
-    Route::get('/document/rap/pdf/{path}', [DocumentController::class, 'createPDFRapport'])->name('admin.document.rap.pdf');
-
-    Route::get('/download-pdf-att/doc/{id}', [DocumentController::class, 'downloadAttestation'])->name('admin.document.att');
-    Route::get('/download-pdf-fc/doc/{id}', [DocumentController::class, 'downloadFC'])->name('admin.document.fc');
-    Route::get('/download-pdf-fe/doc/{id}', [DocumentController::class, 'downloadFE'])->name('admin.document.fe');
-    Route::get('/download-pdf-rap/doc/{id}', [DocumentController::class, 'downloadRapport'])->name('admin.document.rap');
 
     Route::put('/stage/statut/prestage/{id}', [StageController::class, 'prestage'])->name('admin.stage.statut.prestage');
     Route::put('/stage/statut/encours/{id}', [StageController::class, 'encoursStage'])->name('admin.stage.statut.encours');
@@ -143,7 +136,7 @@ Route::middleware('stg')->group(function () {
     Route::get('/download-pdf-fe/{id}', [StageController::class, 'downloadFE'])->name('user.stage.fe');
     Route::get('/download-pdf-rap/{id}', [StageController::class, 'downloadRapport'])->name('user.stage.rap');
 
-    Route::delete('/user/destroy/stage/{id}', [StageController::class, 'index'])->name('user.stage.destroy');
+    Route::delete('/user/destroy/stage/{id}', [StageController::class, 'destroy'])->name('user.stage.destroy');
 
 });
 

@@ -22,6 +22,9 @@ class DemandeController extends Controller
     {
         //
         $user = Auth::user();
+        if ($user === null)
+            return view('auth.login');
+
         if ($user->is_admin) {
             $demandes = Demande::all();
             return view('admin.dashboard.demandes.index', compact('demandes'));
@@ -129,7 +132,7 @@ class DemandeController extends Controller
         $path = $path . '.pdf';
 
         // Path to your PDF file in the storage directory
-        $pdfPath = storage_path('app/storage/cvs/' . $path);
+        $pdfPath = storage_path('app/cvs/' . $path);
 
         // Check if the file exists
         if (File::exists($pdfPath)) {
@@ -190,7 +193,7 @@ class DemandeController extends Controller
         }
 
         if ($offreId !== null) {
-            if (Offre::where('id', $offreId)->first() === null) {
+            if (Demande::where('offre_id', $offreId)->where('user_id', auth()->user()->id)->first() === null) {
                 Demande::create([
                     'lettre_motivation' => $filePath,
                     'user_id' => Auth::user()->id,
@@ -201,13 +204,13 @@ class DemandeController extends Controller
                     'msg' => 'Votre demande a été bien enregistrer',
                 ]);
             } else {
-                redirect()->route('user.demandes')->with([
+                return redirect()->route('user.demandes')->with([
                     'msgErr' => 'Offre est déja demandée'
                 ]);
             }
         } else {
 
-            if (Offre::where('id', $offreId)->first() === null) {
+            if (Demande::where('offre_id', $request->offre_id)->where('user_id', auth()->user()->id)->first() === null) {
                 Demande::create([
                     'lettre_motivation' => $filePath,
                     'user_id' => Auth::user()->id,
@@ -218,7 +221,7 @@ class DemandeController extends Controller
                     'msg' => 'Votre demande a été bien enregistrer',
                 ]);
             } else {
-                redirect()->route('user.demandes')->with([
+                return redirect()->route('user.demandes')->with([
                     'msgErr' => 'Offre est déja demandée'
                 ]);
             }

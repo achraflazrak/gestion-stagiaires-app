@@ -1,7 +1,7 @@
-@extends('layouts.users.main')
+@extends('layouts.dashboard.main')
 
 @section('title')
-Modification mes infos
+Création Stagiaire
 @endsection
 
 @section('content')
@@ -9,18 +9,23 @@ Modification mes infos
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card my-1">
-                <div class="card-header bg-dark text-light fs-4">{{ __('Modification mes infos') }}</div>
+                <div class="card-header bg-dark text-light fs-4">{{ __('Création de Stagiaire') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('user.stg.update', $stg->id) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.stg.store') }}" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
                         <div class="row mb-3">
                             <label for="cin" class="col-md-4 col-form-label text-md-end">{{ __('CIN') }}</label>
 
                             <div class="col-md-6">
-                                <input id="cin" type="text" class="form-control" disabled name="cin"
-                                    value="{{ $stg->cin }}" required autocomplete="cin" autofocus>
+                                <input id="cin" type="text" class="form-control @error('cin') is-invalid @enderror" name="cin"
+                                    value="{{ old('cin') }}" required autocomplete="cin" autofocus>
+
+                                @error('cin')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -29,7 +34,7 @@ Modification mes infos
 
                             <div class="col-md-6">
                                 <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom"
-                                    value="{{ $stg->nom }}" required autocomplete="nom" autofocus>
+                                    value="{{ old('nom') }}" required autocomplete="nom" autofocus>
 
                                 @error('nom')
                                 <span class="invalid-feedback" role="alert">
@@ -44,7 +49,7 @@ Modification mes infos
 
                             <div class="col-md-6">
                                 <input id="prenom" type="text" class="form-control @error('prenom') is-invalid @enderror" name="prenom"
-                                    value="{{ $stg->prenom }}" required autocomplete="prenom" autofocus>
+                                    value="{{ old('prenom') }}" required autocomplete="prenom" autofocus>
 
                                 @error('prenom')
                                 <span class="invalid-feedback" role="alert">
@@ -59,7 +64,7 @@ Modification mes infos
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                                    value="{{ $stg->email }}" required autocomplete="email">
+                                    value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -85,7 +90,8 @@ Modification mes infos
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirmez le mot de passe') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirmez le mot de passe')
+                                }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required
@@ -98,7 +104,7 @@ Modification mes infos
 
                             <div class="col-md-6">
                                 <input id="dateN" type="date" class="form-control @error('dateN') is-invalid @enderror" name="dateN"
-                                    value="{{ $stg->dateN }}" required autocomplete="dateN" autofocus>
+                                    value="{{ old('dateN') }}" required autocomplete="dateN" autofocus>
 
                                 @error('dateN')
                                 <span class="invalid-feedback" role="alert">
@@ -112,8 +118,8 @@ Modification mes infos
                             <label for="telephone" class="col-md-4 col-form-label text-md-end">{{ __('Téléphone') }}</label>
 
                             <div class="col-md-6">
-                                <input id="telephone" type="text" class="form-control @error('telephone') is-invalid @enderror" name="telephone"
-                                    value="{{ $stg->telephone }}" required autocomplete="telephone" autofocus>
+                                <input id="telephone" type="text" class="form-control @error('telephone') is-invalid @enderror"
+                                    name="telephone" value="{{ old('telephone') }}" required autocomplete="telephone" autofocus>
 
                                 @error('telephone')
                                 <span class="invalid-feedback" role="alert">
@@ -124,45 +130,45 @@ Modification mes infos
                         </div>
 
                         <div class="row mb-3">
-                                <label for="adresse" class="col-md-4 col-form-label text-md-end">{{ __('Adresse') }}</label>
+                            <label for="adresse" class="col-md-4 col-form-label text-md-end">{{ __('Adresse') }}</label>
 
-                                <div class="col-md-6">
-                                    <textarea id="adresse" type="text" class="form-control @error('adresse') is-invalid @enderror" name="adresse"
-                                        required autocomplete="adresse" autofocus>{{ $stg->adresse }}</textarea>
+                            <div class="col-md-6">
+                                <textarea id="adresse" type="text" class="form-control @error('adresse') is-invalid @enderror"
+                                    name="adresse" required autocomplete="adresse" autofocus>{{ old('adresse') }}</textarea>
 
-                                    @error('adresse')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
+                                @error('adresse')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
+                        </div>
 
                         <div class="row mb-3">
-                                <label for="sexe" class="col-md-4 col-form-label text-md-end">{{ __('Sexe') }}</label>
+                            <label for="sexe" class="col-md-4 col-form-label text-md-end">{{ __('Sexe') }}</label>
 
-                                <div class="col-md-6">
-                                    <select id="sexe" name="sexe" class="form-select" aria-label="Default select example">
-                                        <option value="" disabled></option>
-                                        <option {{ $stg->sexe == 'm'? 'selected': '' }} value="m">M</option>
-                                        <option {{ $stg->sexe == 'f'? 'selected': '' }} value="f">F</option>
-                                    </select>
-                                </div>
+                            <div class="col-md-6">
+                                <select id="sexe" name="sexe" class="form-select @error('sexe') is-invalid @enderror"
+                                    aria-label="Default select example">
+                                    <option value="" disabled {{ old('sexe') ? '' : 'selected' }}>Choisir un option...</option>
+                                    <option value="m" {{ old('sexe')=='m' ? 'selected' : '' }}>M</option>
+                                    <option value="f" {{ old('sexe')=='f' ? 'selected' : '' }}>F</option>
+                                </select>
 
-                                    @error('sexe')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
+                                @error('sexe')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
+                        </div>
 
                         <div class="row mb-3">
                             <label for="etablissement" class="col-md-4 col-form-label text-md-end">{{ __('Etablissement') }}</label>
 
                             <div class="col-md-6">
                                 <input id="etablissement" type="text" class="form-control @error('etablissement') is-invalid @enderror"
-                                    name="etablissement" value="{{ $stg->etablissement }}" required autocomplete="etablissement" autofocus>
+                                    name="etablissement" value="{{ old('etablissement') }}" required autocomplete="etablissement" autofocus>
 
                                 @error('etablissement')
                                 <span class="invalid-feedback" role="alert">
@@ -176,7 +182,7 @@ Modification mes infos
                             <label for="filiere" class="col-md-4 col-form-label text-md-end">{{ __('Filière') }}</label>
                             <div class="col-md-6">
                                 <input id="filiere" type="text" class="form-control @error('filiere') is-invalid @enderror" name="filiere"
-                                    value="{{ $stg->filiere }}" required autocomplete="filiere" autofocus>
+                                    value="{{ old('filiere') }}" required autocomplete="filiere" autofocus>
 
                                 @error('filiere')
                                 <span class="invalid-feedback" role="alert">
@@ -189,29 +195,30 @@ Modification mes infos
                         <div class="row mb-3">
                             <label for="niveau" class="col-md-4 col-form-label text-md-end">{{ __('Formation professionelle') }}</label>
 
-                        <div class="col-md-6">
-                                <select id="niveau" name="niveau" class="form-select" aria-label="Default select example">
-                                    <option value="" disabled></option>
-                                    <option {{ $stg->niveau == 'bac+1'? 'selected': '' }} value="bac+1">Bac + 1</option>
-                                    <option {{ $stg->niveau == 'bac+2'? 'selected': '' }} value="bac+2">Bac + 2</option>
-                                    <option {{ $stg->niveau == 'bac+3'? 'selected': '' }} value="bac+3">Bac + 3</option>
-                                    <option {{ $stg->niveau == 'bac+4'? 'selected': '' }} value="bac+4">Bac + 4</option>
-                                    <option {{ $stg->niveau == 'bac+5'? 'selected': '' }} value="bac+5">Bac + 5</option>
+                            <div class="col-md-6">
+                                <select id="niveau" name="niveau" class="form-select @error('niveau') is-invalid @enderror"
+                                    aria-label="Default select example">
+                                    <option value="" disabled {{ old('niveau') ? '' : 'selected' }}>Choisir un option...</option>
+                                    <option value="bac+1" {{ old('niveau')=='bac+1' ? 'selected' : '' }}>Bac + 1</option>
+                                    <option value="bac+2" {{ old('niveau')=='bac+2' ? 'selected' : '' }}>Bac + 2</option>
+                                    <option value="bac+3" {{ old('niveau')=='bac+3' ? 'selected' : '' }}>Bac + 3</option>
+                                    <option value="bac+4" {{ old('niveau')=='bac+4' ? 'selected' : '' }}>Bac + 4</option>
+                                    <option value="bac+5" {{ old('niveau')=='bac+5' ? 'selected' : '' }}>Bac + 5</option>
                                 </select>
-                            </div>
 
-                            @error('niveau')
+                                @error('niveau')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                            @enderror
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="cv" class="col-md-4 col-form-label text-md-end">{{ __('C.V') }}</label>
                             <div class="col-md-6">
-                                <input id="cv" type="file" class="form-control @error('cv') is-invalid @enderror" name="cv"
-                                    value="{{ $stg->cv }}" autocomplete="cv" autofocus>
+                                <input id="cv" type="file" class="form-control @error('cv') is-invalid @enderror" name="cv" required
+                                    autocomplete="off" autofocus>
 
                                 @error('cv')
                                 <span class="invalid-feedback" role="alert">
@@ -224,7 +231,7 @@ Modification mes infos
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-dark mb-2">
-                                    {{ __('Modifier') }}
+                                    {{ __('Créer un stagiaire') }}
                                 </button>
                             </div>
                         </div>

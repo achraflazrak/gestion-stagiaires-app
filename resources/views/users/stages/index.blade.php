@@ -48,9 +48,9 @@ Stages
                 </td>
                 <td>
                     @if($stage->fiche_confirmation)
-                    <a href="{{ route('user.stage.fc.pdf', basename($stage->fiche_confirmation, '.pdf')) }}"
+                    <a href="{{ route('user.stage.fc.pdf', basename($stage->fiche_confirmation, '.pdf')) }}" target="_blank"
                         class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                    <a href="{{ route('user.stage.fc', $stage->id) }}" class="btn btn-success }}">
+                    <a href="{{ route('user.stage.fc', $stage->id) }}" class="btn btn-success }}" target="_blank">
                         <i class="fas fa-download"></i></a>
 
                             <form action="{{ route('user.stage.delete.fc', $stage->id) }}" method="POST" enctype="multipart/form-data">
@@ -77,9 +77,9 @@ Stages
                 </td>
                 <td>
                     @if($stage->fiche_evaluation)
-                    <a href="{{ route('user.stage.fe.pdf', basename($stage->fiche_evaluation, '.pdf')) }}"
+                    <a href="{{ route('user.stage.fe.pdf', basename($stage->fiche_evaluation, '.pdf')) }}" target="_blank"
                         class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                    <a href="{{ route('user.stage.fe', $stage->id) }}" class="btn btn-success }}">
+                    <a href="{{ route('user.stage.fe', $stage->id) }}" class="btn btn-success }}" target="_blank">
                         <i class="fas fa-download"></i></a>
                         <form action="{{ route('user.stage.delete.fe', $stage->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -104,7 +104,7 @@ Stages
                 </td>
                 <td>
                     @if($stage->rapport)
-                        <a href="{{ route('user.stage.rap.pdf', basename($stage->rapport, '.pdf')) }}"
+                        <a href="{{ route('user.stage.rap.pdf', basename($stage->rapport, '.pdf')) }}" target="_blank"
                             class="btn btn-primary"><i class="fas fa-eye"></i></a>
                         <a href="{{ route('user.stage.rap', $stage->id) }}" class="btn btn-success }}">
                             <i class="fas fa-download"></i></a>
@@ -130,7 +130,7 @@ Stages
                     @endif
                 </td>
                 <td>
-                    <a href="{{ route('user.stage.att', $stage->id) }}"
+                    <a href="{{ route('user.stage.att', $stage->id) }}" target="_blank"
                         class="btn btn-{{ $stage->statut != 1? 'dark disabled' : 'success' }}">
                         <i class="fas fa-download"></i>
                     </a>

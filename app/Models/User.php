@@ -45,8 +45,9 @@ class User extends Authenticatable
         return $this->hasMany(Demande::class);
     }
 
-        public function stages() {
+    public function stages() {
         return $this->hasMany(Stage::class);
     }
+
 
 }

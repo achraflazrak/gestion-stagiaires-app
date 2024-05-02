@@ -38,11 +38,8 @@ Modification une demande
                     value="{{ $demande->offre_id }}" required autocomplete="lettre_motivation" autofocus
                     aria-label="Default select example">
                     <option disabled>Choisir une offre</option>
-                    <option selected value="{{ $demande->offre_id }}">{{ $demande->offre->sujet }}</option>
                     @foreach ($offres as $offre)
-                        @if($offre->id != $demande->offre->id && !$offre->demandes->count())
-                            <option value="{{ $offre->id }}">#{{ $offre->id }} {{ $offre->sujet }}</option>
-                        @endif
+                        <option value="{{ $offre->id }}" {{ $demande->offre_id == $offre->id? 'selected' : '' }}>#{{ $offre->id }} {{ $offre->sujet }}</option>
                     @endforeach
                 </select>
 

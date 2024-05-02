@@ -11,6 +11,10 @@ Stagiaires
             </div>
         @endif
 
+        <div class="mb-3 d-flex justify-content-center">
+            <a href="{{ route('admin.stg.create') }}" class="btn btn-success text-center"><i class="fas fa-add"></i></a>
+        </div>
+
         <table class="table table-hover text-center">
                 <thead>
                     <tr>
@@ -37,7 +41,8 @@ Stagiaires
                             <a href="{{ route('admin.stg.show', $stg->id) }}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
                         </td>
                         <td>
-                            <form action="{{ route('admin.stg.destroy', $stg->id) }}" method="post">
+                            <a href="{{ route('admin.stg.edit', $stg->id) }}" class="btn btn-primary"><i class="fas fa-pencil"></i> </a>
+                            <form action="{{ route('admin.stg.destroy', $stg->id) }}" method="post" class="d-inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button onclick="return confirm('Est ce que tu es sûre de supprimer ce stagiaire?')" type="submit" class="btn btn-danger">

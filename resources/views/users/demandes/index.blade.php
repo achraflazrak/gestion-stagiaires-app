@@ -30,12 +30,12 @@ Demandes
                 <td>#{{ $demande->offre->id }}</td>
                 <td>{{ Str::ucfirst($demande->offre->sujet) }}</td>
                 <td>
-                    <a href="{{ route('user.demande.cv.pdf', basename($demande->user->cv, '.pdf')) }}"
+                    <a href="{{ route('user.demande.cv.pdf', basename($demande->user->cv, '.pdf')) }}" target="_blank"
                         class="btn btn-success"><i class="fas fa-eye"></i></a>
                     </a>
                 </td>
                 <td>
-                    <a href="{{ route('user.demande.lm.pdf', basename($demande->lettre_motivation, '.pdf')) }}"
+                    <a href="{{ route('user.demande.lm.pdf', basename($demande->lettre_motivation, '.pdf')) }}" target="_blank"
                         class="btn btn-success"><i class="fas fa-eye"></i></a>
                 </td>
                 <td>

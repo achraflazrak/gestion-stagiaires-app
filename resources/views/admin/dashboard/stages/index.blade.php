@@ -5,6 +5,9 @@ Stages
 
 @section('content')
 <div class="container">
+        <div class="mb-3 d-flex justify-content-center">
+            <a href="{{ route('admin.stage.create') }}" class="btn btn-success text-center"><i class="fas fa-add"></i></a>
+        </div>
     <table class="table table-hover text-center">
         <thead>
             <tr>
@@ -42,9 +45,9 @@ Stages
                 </td>
                 <td>
                     @if($stage->fiche_confirmation)
-                        <a href="{{ route('admin.stage.fc.pdf', basename($stage->fiche_confirmation, '.pdf')) }}" class="btn btn-primary"><i
+                        <a href="{{ route('admin.stage.fc.pdf', basename($stage->fiche_confirmation, '.pdf')) }}" class="btn btn-primary" target="_blank"><i
                                 class="fas fa-eye"></i></a>
-                        <a href="{{ route('admin.stage.fc', $stage->id) }}" class="btn btn-success }}">
+                        <a href="{{ route('admin.stage.fc', $stage->id) }}" class="btn btn-success }}" target="_blank">
                             <i class="fas fa-download"></i>
                     @else
                         <span>-</span>
@@ -53,9 +56,9 @@ Stages
                 </td>
                 <td>
                     @if($stage->fiche_evaluation)
-                        <a href="{{ route('admin.stage.fe.pdf', basename($stage->fiche_evaluation, '.pdf')) }}" class="btn btn-primary"><i
+                        <a href="{{ route('admin.stage.fe.pdf', basename($stage->fiche_evaluation, '.pdf')) }}" class="btn btn-primary" target="_blank"><i
                             class="fas fa-eye"></i></a>
-                        <a href="{{ route('admin.stage.fe', $stage->id) }}" class="btn btn-success }}">
+                        <a href="{{ route('admin.stage.fe', $stage->id) }}" class="btn btn-success }}" target="_blank">
                             <i class="fas fa-download"></i>
                     @else
                         <span>-</span>
@@ -63,16 +66,16 @@ Stages
                 </td>
                 <td>
                    @if($stage->rapport)
-                        <a href="{{ route('admin.stage.rap.pdf', basename($stage->rapport, '.pdf')) }}" class="btn btn-primary"><i
+                        <a href="{{ route('admin.stage.rap.pdf', basename($stage->rapport, '.pdf')) }}" class="btn btn-primary mb-2" target="_blank"><i
                                 class="fas fa-eye"></i></a>
-                        <a href="{{ route('admin.stage.rap', $stage->id) }}" class="btn btn-success }}">
+                        <a href="{{ route('admin.stage.rap', $stage->id) }}" class="btn btn-success }}" target="_blank">
                             <i class="fas fa-download"></i>
                     @else
                         <span>-</span>
                     @endif
                 </td>
                 <td>
-                    <a href="{{ route('admin.stage.att', $stage->id) }}" class="btn btn-{{ $stage->statut != 1? 'dark disabled' : 'success' }}">
+                    <a href="{{ route('admin.stage.att', $stage->id) }}" class="btn btn-{{ $stage->statut != 1? 'dark disabled' : 'success' }}" target="_blank">
                         <i class="fas fa-download"></i>
                     </a>
                 </td>
@@ -102,6 +105,7 @@ Stages
 
                 </td>
                 <td>
+                    <a href="{{ route('admin.stage.edit', $stage->id) }}" class="btn btn-primary mb-2"> <i class="fas fa-pencil"></i> </a>
 
                     <form action="{{ route('admin.stage.destroy', $stage->id) }}" method="POST">
                         @csrf

@@ -75,7 +75,7 @@ protected function validator(array $data)
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
         'password' => ['required', 'string', 'min:8', 'confirmed'],
         'dateN' => ['required', 'date', 'before:today'],
-        'telephone' => ['required', 'string', 'max:255'],
+        'telephone' => ['required', 'string', 'digits:10'],
         'adresse' => ['required', 'string', 'max:1024'],
         'sexe' => ['required', 'in:m,f'],
         'etablissement' => ['required', 'string', 'max:255'],
@@ -98,7 +98,7 @@ protected function validator(array $data)
         // Gestion du téléchargement du fichier CV
         $cvPath = null;
         if (isset($data['cv'])) {
-            $cvPath = $data['cv']->store('storage/cvs');
+            $cvPath = $data['cv']->store('cvs');
         }
 
         return User::create([

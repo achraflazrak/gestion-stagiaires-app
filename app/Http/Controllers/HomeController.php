@@ -23,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (auth()->user() === null)
+            return view('auth.login');
+
         $stg = auth()->user();
         return view('home', compact('stg'));
     }

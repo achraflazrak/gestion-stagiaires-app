@@ -31,12 +31,6 @@
                     Stagiaires
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Route::is("admin.docs")? 'text-bg-light rounded-2' : 'text-light' }}" href="{{ route('admin.docs') }}">
-                    <i class="fas fa-file"></i>
-                    Documents
-                </a>
-            </li>
         </ul>
     </div>
 </nav>
